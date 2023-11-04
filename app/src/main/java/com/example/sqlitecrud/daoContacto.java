@@ -1,0 +1,73 @@
+package com.example.sqlitecrud;
+
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+
+public class daoContacto extends Activity {
+
+    SQLiteDatabase bd;
+    ArrayList<contacto>lista =new ArrayList<contacto>();
+
+    contacto c;
+    Context ct;
+    String nombreDB = "BDContactos";
+    String tabla = "create table if not exists contacto(id integer primary key autoincrement, nombre text, apellido text, email text, telefono text, ciudad text)";
+
+    public daoContacto(Context c){
+        this.ct=c;
+        bd=c.openOrCreateDatabase(nombreDB, Context.MODE_PRIVATE, null);
+        bd.execSQL(tabla);
+    }
+
+    public boolean insertar(contacto c){
+        ContentValues contenedor = new ContentValues();
+        contenedor.put("nombre", c.getNombre());
+        contenedor.put("apellido", c.getApellido());
+        contenedor.put("email", c.getEmail());
+        contenedor.put("telefono", c.getTelefono());
+        contenedor.put("ciudad", c.getCiudad());
+        return (bd.insert("Contacto", null, contenedor))>0;
+    }
+    public boolean eliminar(int id){
+        return(bd.delete("contacto","id="+id,null))>0;
+    }
+    public boolean editar(contacto c){
+        ContentValues contenedor = new ContentValues();
+        contenedor.put("nombre", c.getNombre());
+        contenedor.put("apellido", c.getApellido());
+        contenedor.put("email", c.getEmail());
+        contenedor.put("telefono", c.getTelefono());
+        contenedor.put("ciudad", c.getCiudad());
+        return (bd.update("contacto", contenedor, "id="+c.getId(),null))>0;
+    }
+
+    public ArrayList<contacto>verTodo(){
+        lista.clear();
+        Cursor cursor = bd.rawQuery("select * from contacto", null);
+        if (cursor != null && cursor.getCount()>0){
+            do {
+                lista.add(new contacto(cursor.getInt(0),
+                        cursor.getString(1),cursor.getString(2),
+                        cursor.getString(3),cursor.getString(4),
+                        cursor.getString(5)));
+            }while (cursor.moveToNext());
+        }
+        return lista;
+    }
+
+    public contacto verUno(int posicion){
+        Cursor cursor = bd.rawQuery("select * from contacto",null);
+        cursor.moveToPosition(posicion);
+        c=new contacto(cursor.getInt(0),
+                cursor.getString(1), cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5));
+        return c;
+    }
+}
