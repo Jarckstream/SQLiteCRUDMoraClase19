@@ -44,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setCancelable(true);
                 dialog.setContentView(R.layout.dialogo);
                 dialog.show();
+
                 final EditText nombre =dialog.findViewById(R.id.et_nombre);
                 final EditText apellido =dialog.findViewById(R.id.et_apellido);
                 final EditText email =dialog.findViewById(R.id.et_email);
                 final EditText telefono =dialog.findViewById(R.id.et_telefono);
                 final EditText ciudad =dialog.findViewById(R.id.et_ciudad);
+
                 Button guardar = dialog.findViewById(R.id.agregar);
                 guardar.setText("Agregar");
                 Button cancelar =dialog.findViewById(R.id.cancelar);

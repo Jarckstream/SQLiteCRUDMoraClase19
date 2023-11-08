@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-public class daoContacto extends Activity {
+public class daoContacto {
 
     SQLiteDatabase bd;
     ArrayList<contacto>lista =new ArrayList<contacto>();
