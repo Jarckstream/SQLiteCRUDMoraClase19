@@ -1,6 +1,5 @@
 package com.example.sqlitecrud;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,9 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
 public class daoContacto {
-
     SQLiteDatabase bd;
-    ArrayList<contacto>lista =new ArrayList<contacto>();
+    ArrayList<contacto> lista =new ArrayList<contacto>();
 
     contacto c;
     Context ct;
